@@ -49,13 +49,15 @@
 
 ![](/preview/Capture004.png)
 
+## [使用文档](https://www.anye.xyz/docs/vcard)
+
 ## 插件支持
 
 - [x] 评论组件：https://www.halo.run/store/apps/app-YXyaD
 
 ## TODO
 
-- [ ] 导航更新引入系统菜单
+- [x] 导航更新引入系统菜单
 
 ## 🏭 贡献
 

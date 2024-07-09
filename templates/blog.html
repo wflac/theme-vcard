@@ -2,9 +2,6 @@
 <html xmlns:th="https://www.thymeleaf.org"
     th:replace="~{modules/layout :: html(title = ${site.title}, hero = null, content = ~{::content}, head = null, footer = null, sidebar = ~{::sidebar}, contentClass = '')}">
 <th:block th:fragment="content">
-
-</th:block>
-<th:block th:fragment="content">
     <main class="main">
         <!-- Header Image -->
         <div class="header-image">
@@ -20,40 +17,44 @@
                 <th:block th:replace="~{modules/sidebar}" />
 
                 <!-- Content -->
-                <div class="col-12 col-md-12 col-lg-10">
+                <div class="col-12 col-md-12 col-lg-10"
+                    th:with="page = ${#strings.isEmpty(param.page) ? 1 : param.page}">
                     <div class="box box-content">
                         <div class="pb-2">
-                            <h1 class="title title--h1 first-title title__separate">时间线</h1>
+                            <h1 class="title title--h1 first-title title__separate">Blog</h1>
                         </div>
 
                         <!-- News -->
-                        <div class="row">
-                            <div class="col-12" th:each="archive : ${archives.items}">
-                                <h2 class="title title--h3">
-                                    <span t th:text="|${archive.year}年|"></span>
-                                </h2>
-                                <div class="timeline">
-                                    <!-- Item -->
-                                    <th:block th:each="month : ${archive.months}">
-                                        <article class="timeline__item" th:each="post : ${month.posts}">
-                                            <a th:href="@{${post.status.permalink}}">
-                                                <h5 class="title title--h5 timeline__title"
-                                                    th:title="${post.spec.title}" th:text="${post.spec.title}">
-                                                </h5>
-                                            </a>
-                                            <span class="timeline__period"
-                                                th:text="${#dates.format(post.spec.publishTime,'MM月dd日')}"></span>
-                                        </article>
-                                    </th:block>
+                        <div class="news-grid" th:with="posts = ${postFinder.list(page,10)}">
+                            <!-- Post -->
+                            <article class="news-item box" th:each="post : ${posts.items}">
+                                <div class="news-item__image-wrap overlay overlay--45">
+                                    <div class="news-item__date">
+                                        <span th:text="${#dates.format(post.spec.publishTime,'dd')}"
+                                            style="font-size: 1.375rem;font-weight: 600;"></span>
+                                        <span th:text="${#dates.format(post.spec.publishTime,'MMMM')}"></span>
+                                    </div>
+                                    <a class="news-item__link" th:href="@{${post.status.permalink}}"></a>
+                                    <img class="cover lazyload"
+                                        th:src="${post.spec.cover ?: #theme.assets('/images/halo.jpg')}" alt="" />
                                 </div>
+                                <div class="news-item__caption">
+                                    <h2 class="title title--h4" th:text="${post.spec.title}"></h2>
+                                    <p th:each="categories : ${post.categories}" th:text="${post.status.excerpt}"></p>
+                                </div>
+                            </article>
+
+                            <div th:replace="~{modules/pagination :: page1('',${posts})}">
                             </div>
-                            <div th:replace="~{modules/pagination :: page('/archives',${archives})}"></div>
                         </div>
+
                     </div>
+
                     <!-- Footer -->
-                    <th:block th:replace="~{modules/footer}" />
+                    <th:block th:replace=" ~{modules/footer}" />
                 </div>
             </div>
+        </div>
     </main>
     <div class="back-to-top"></div>
 
@@ -68,6 +69,7 @@
                 d="M0 27.2891c0-4.6662 2.4889-8.976 6.52491-11.2986L31.308 1.72845c3.98-2.290382 8.8697-2.305446 12.8637-.03963l25.234 14.31558C73.4807 18.3162 76 22.6478 76 27.3426V56.684c0 4.6805-2.5041 9.0013-6.5597 11.3186L44.4317 82.2915c-3.9869 2.278-8.8765 2.278-12.8634 0L6.55974 68.0026C2.50414 65.6853 0 61.3645 0 56.684V27.2891z" />
         </clipPath>
     </svg>
+
 </th:block>
 
 </html>

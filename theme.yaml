@@ -1,21 +1,34 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-starter
+  name: theme-vcard
 spec:
-  displayName: Theme Starter
+  displayName: vcard
   author:
-    name: Halo
-    website: "https://github.com/halo-dev"
-  description: Halo 2.0 Theme base on Thymeleaf
-  logo: "https://www.halo.run/logo"
-  homepage: "https://github.com/halo-dev/theme-starter#readme"
-  repo: "https://github.com/halo-dev/theme-starter"
-  issues: "https://github.com/halo-dev/theme-starter/issues"
-  settingName: "theme-starter-setting"
-  configMapName: "theme-starter-configMap"
-  version: "1.0.0"
-  requires: ">=2.0.0"
-  license:
-    - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/plugin-starter/blob/main/LICENSE"
+    name: 無.Flac
+    website: https://w-flac.org.cn
+  description: 一个专注于展示个人职业经历、技能、项目和成就的主题。它结合了博客和简历的元素，既可以用来记录和分享个人的职业发展和成就，也可以作为一个动态、互动的在线简历。
+  logo: "https://halo.run/logo"
+  homepage: "https://github.com/wflac/theme-vcard#readme"
+  website: https://parlo.cn
+  repo: 
+  issues: "https://github.com/wflac/theme-vcard/issues"
+  settingName: "theme-vcard-setting"
+  configMapName: "theme-vcard-configMap"
+  version: "0.1"
+  require: ">=2.14.0"
+
+  customTemplates:
+    page:
+      - name: Resume/教育经历
+        description: 简历模版
+        screenshot: 
+        file: resume.html
+      - name: Blog/博客
+        description: 博客模版
+        screenshot: 
+        file: blog.html
+      - name: Contact/联系我
+        description: 联系模版
+        screenshot: 
+        file: contact.html

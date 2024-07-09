@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = ${site.title}, hero = null, content = ~{::content}, head = null, footer = null, sidebar = ~{::sidebar}, contentClass = '')}">
+<th:block th:fragment="content">
+    <main class="main">
+        <!-- Header Image -->
+        <div class="header-image">
+            <div class="js-parallax"
+                th:style="'background-image: url(' + ${theme.config.index.header.header_image.images} + ');'"></div>
+        </div>
+        <div class="container gutter-top">
+            <!-- Header -->
+            <th:block th:replace="~{modules/header}" />
+            <div class="row sticky-parent">
+                <!-- Sidebar nav -->
+                <th:block th:replace="~{modules/sidebar}" />
+                <div class="col-12 col-md-12 col-lg-10">
+                    <div class="box box-content">
+                        <div class="pb-2">
+                            <h1 class="title title--h1 first-title title__separate">Contact</h1>
+                        </div>
+                        <h2 class="title title--h3">联系我</h2>
+                        <div th:with="content = ${theme.config.contact.content}" th:if="${theme.config.contact.switch}">
+                            <th:block th:each="content_list : ${content}">
+                                <p th:utext="${content_list.text}"></p>
+                            </th:block>
+                        </div>
+
+                        <div class="comment-box">
+                            <halo:comment group="content.halo.run" kind="singlePage"
+                                th:attr="name=${singlePage.metadata.name}" />
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <th:block th:replace=" ~{modules/footer}" />
+                </div>
+    </main>
+</th:block>

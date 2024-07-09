@@ -1,0 +1,52 @@
+<header class="header box">
+    <div class="header__left">
+        <div class="header__photo">
+            <a th:href="${site.url}">
+                <img class="header__photo-img"
+                    th:src="${theme.config.index.header.header_info.header_info_img ?: site.logo}" alt="LOGO">
+            </a>
+        </div>
+        <div class="header__base-info">
+            <h4 class="title titl--h4"
+                th:text="${theme.config.index.header.header_info.header_info_title  ?: site.title}">
+            </h4>
+            <div class="status"
+                th:text="${theme.config.index.header.header_info.header_info_subtitle ?: site.subtitle}">
+            </div>
+            <th:block th:with="social = ${theme.config.index.header.social}" th:unless="${_templateId == 'post'}">
+                <ul class="header__social">
+                    <li th:each="social_item : ${social}">
+                        <a th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
+                            <i th:classappend="${social_item.icon}"></i>
+                        </a>
+                    </li>
+                </ul>
+            </th:block>
+        </div>
+    </div>
+    <div class="header__right">
+        <ul class="header__contact">
+            <li>
+                <span class="overhead">Email/邮箱</span>
+                <a th:href="'mailto:' + (${theme.config.index.header.header_contact.header_contact_email ?: ''})"
+                    th:text="${theme.config.index.header.header_contact.header_contact_email ?: '未设置'}"></a>
+            </li>
+            <li>
+                <span class="overhead">Phone/手机</span>
+                <p th:text="${theme.config.index.header.header_contact.header_contact_phone ?: '未设置'}"></p>
+            </li>
+        </ul>
+        <ul class="header__contact">
+            <li>
+                <span class="overhead">Birthday/生日</span>
+                <p th:text="${theme.config.index.header.header_contact.header_contact_birthday ?: '未设置'}">
+                </p>
+            </li>
+            <li>
+                <span class="overhead">Location/地区</span>
+                <p th:text="${theme.config.index.header.header_contact.header_contact_Location ?: '未设置'}">
+                </p>
+            </li>
+        </ul>
+    </div>
+</header>

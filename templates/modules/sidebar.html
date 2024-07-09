@@ -1,0 +1,13 @@
+<aside class="col-12 col-md-12 col-lg-2">
+    <!-- th:unless="${_templateId == 'post'}" -->
+    <div class="sidebar box sticky-column" th:with="menu = ${theme.config.menu.menu.menu_list}">
+        <ul class="nav">
+            <li class="nav__item" th:each="nav_item : ${menu}">
+                <a th:href="${nav_item.url}" target="_self">
+                    <i th:classappend="${nav_item.icon}"></i>
+                    <span th:text="${nav_item.name}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="https://www.thymeleaf.org" th:fragment="html (head,content)">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
+    <link rel="stylesheet" th:href="@{/assets/css/style-demo.css?v={version}(version=${theme.spec.version})}" />
+    <link rel="stylesheet" th:href="@{/assets/fonts/style.css?v={version}(version=${theme.spec.version})}" />
+    <th:block th:if="${head != null}">
+        <th:block th:replace="${head}" />
+    </th:block>
+</head>
+
+<body>
+    <th:block th:replace="~{modules/preloader}" />
+    <th:block th:replace="${content}" />
+    <script th:src="@{/assets/js/jquery-3.4.1.min.js?v={version}(version=${theme.spec.version})}"></script>
+    <script th:src="@{/assets/js/plugins.min.js?v={version}(version=${theme.spec.version})}"></script>
+    <script th:src="@{/assets/js/common.js?v={version}(version=${theme.spec.version})}"></script>
+    <script th:src="@{/assets/js/plugins-demo.js?v={version}(version=${theme.spec.version})}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 获取当前页面的 URL
+            var currentUrl = window.location.href;
+
+            // 获取所有菜单项的 <a> 元素
+            var menuItems = document.querySelectorAll('.nav__item a');
+
+            // 遍历所有菜单项
+            menuItems.forEach(function (menuItem) {
+                // 获取每个菜单项的 href 属性值
+                var menuItemUrl = menuItem.href;
+
+                // 如果菜单项的 href 与当前 URL 相同，则添加 'active' 类
+                if (currentUrl === menuItemUrl) {
+                    menuItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+
+</html>
