@@ -49,7 +49,7 @@
 
 ![](/preview/Capture004.png)
 
-## [使用文档](https://www.anye.xyz/docs/vcard)
+## [使用文档](https://parlo.cn/docs/vcard)
 
 ## 插件支持
 
