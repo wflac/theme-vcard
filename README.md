@@ -8,7 +8,7 @@
 
   ### [Parlo主题站](https://parlo.cn/)
 
-  ![](/preview/Capture001.png)
+  ![](/preview/Capture000.png)
 
   ![](https://img.shields.io/badge/dynamic/yaml?label=Halo&query=%24.spec.requires&url=https://raw.githubusercontent.com/wflac/theme-vcard/main/theme.yaml&color=113,195,71)
   ![](https://img.shields.io/github/v/release/wflac/theme-vcard)
