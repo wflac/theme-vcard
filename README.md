@@ -6,7 +6,7 @@
 
 <center>
 
-  ### [Parlo主题站](https://parlo.cn/)
+  ###演示站点 [Parlo主题站](https://parlo.cn/)
 
   ![](/preview/Capture000.png)
 
