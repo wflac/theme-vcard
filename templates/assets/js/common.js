@@ -504,76 +504,17 @@ $(document).ready(function () {
         }
     });
 
-    function submitForm() {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        const form = document.getElementById('contact-form');
-        const data = JSON.stringify({
-            "spec": {
-                "formTemplateName": form_id,
-                "entries": [
-                    {
-                        "name": form_name,
-                        "value": form.elements[form_name].value,
-                        "label": "单行文本"
-                    },
-                    {
-                        "name": form_email,
-                        "value": form.elements[form_email].value,
-                        "label": "邮箱"
-                    },
-                    {
-                        "name": form_message,
-                        "value": form.elements[form_message].value,
-                        "label": "多行文本"
-                    }
-                ],
-                "startDateTime": ""
-            },
-            "metadata": {
-                "generateName": "entry-"
-            }
-        });
-
-        const options = {
-            method: 'POST',
-            headers: headers,
-            body: data
-        };
-
-        fetch(form_url, options)
-            .then(response => {
-                if (response.ok) {
-                    return response.text().then(result => {
-                        alert("提交成功");
-                        console.log(result);
-                    });
-                } else {
-                    return response.text().then(result => {
-                        alert("提交失败");
-                        console.log('error', result);
-                    });
-                }
-            })
-            .catch(error => {
-                alert("提交失败");
-                console.log('error', error);
-            });
-    }
-
-
     function formSuccess() {
         $("#contact-form")[0].reset();
         submitMSG(true, "Thanks! Your message has been sent.");
     }
-  
+
     function formError() {
         $("#contactForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
-    }  
-  
+    }
+
     function submitMSG(valid, msg) {
         var msgClasses;
         if (valid) {

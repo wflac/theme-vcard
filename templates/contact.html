@@ -24,6 +24,11 @@
 
                         <form id="contact-form" class="contact-form" data-toggle="validator">
                             <div class="row">
+                                <div style="display: none;">
+                                    <span id="idContact" th:name="${theme.config.contact.contact_info.id}"></span>
+                                    <span id="urlContact"
+                                        th:name="|${site.url}apis/api.form.halo.run/v1alpha1/plugins/PluginContactForm/entries|"></span>
+                                </div>
                                 <div class="form-group col-12 col-md-6">
                                     <input type="text" class="form-control" id="nameContact" th:name="${contact.name}"
                                         placeholder="Full name / 称呼" required="required" autocomplete="on"
@@ -66,10 +71,99 @@
         </div>
     </main>
     <script th:inline="javascript">
-        var form_id = [[${ theme.config.contact.contact_info.id }]];
-        var form_name = [[${ theme.config.contact.contact_info.name }]];
-        var form_email = [[${ theme.config.contact.contact_info.email }]];
-        var form_message = [[${ theme.config.contact.contact_info.message }]];
-        var form_url = [[|${site.url}apis/api.form.halo.run/v1alpha1/plugins/PluginContactForm/entries|]];
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function submitForm(event) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            // 获取表单和各个元素的值
+            const form = document.getElementById('contact-form');
+            const form_id = document.getElementById('idContact').getAttribute('name');
+            const form_name = document.getElementById('nameContact').getAttribute('name');
+            const form_email = document.getElementById('emailContact').getAttribute('name');
+            const form_message = document.getElementById('messageContact').getAttribute('name');
+            const form_url = document.getElementById('urlContact').getAttribute('name');
+
+            // 获取输入值
+            const nameValue = form.elements[form_name].value.trim();
+            const emailValue = form.elements[form_email].value.trim();
+            const messageValue = form.elements[form_message].value.trim();
+
+            // 表单验证
+            if (!nameValue) {
+                alert('姓名不能为空 / The name cannot be blank');
+                return;
+            }
+            if (!validateEmail(emailValue)) {
+                alert('请输入有效的邮箱地址 / Please enter a valid email address');
+                return;
+            }
+
+            const headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+
+            const data = JSON.stringify({
+                "spec": {
+                    "formTemplateName": form_id,
+                    "entries": [
+                        {
+                            "name": form_name,
+                            "value": nameValue,
+                            "label": "单行文本"
+                        },
+                        {
+                            "name": form_email,
+                            "value": emailValue,
+                            "label": "邮箱"
+                        },
+                        {
+                            "name": form_message,
+                            "value": messageValue,
+                            "label": "多行文本"
+                        }
+                    ],
+                    "startDateTime": ""
+                },
+                "metadata": {
+                    "generateName": "entry-"
+                }
+            });
+
+            const options = {
+                method: 'POST',
+                headers: headers,
+                body: data
+            };
+
+            fetch(form_url, options)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text().then(result => {
+                            alert("提交成功");
+                            console.log(result);
+                        });
+                    } else {
+                        return response.text().then(result => {
+                            alert("提交失败");
+                            console.log('error', result);
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert("提交失败");
+                    console.log('error', error);
+                });
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById('contact-form');
+            form.addEventListener('submit', submitForm);
+        });
+
     </script>
+
 </th:block>
