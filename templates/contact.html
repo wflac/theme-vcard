@@ -15,21 +15,49 @@
                 <!-- Sidebar nav -->
                 <th:block th:replace="~{modules/sidebar}" />
                 <div class="col-12 col-md-12 col-lg-10">
-                    <div class="box box-content">
+                    <div class="box box-content" th:with="contact = ${theme.config.contact.contact_info}">
                         <div class="pb-2">
                             <h1 class="title title--h1 first-title title__separate">Contact</h1>
                         </div>
-                        <h2 class="title title--h3">联系我</h2>
-                        <div th:with="content = ${theme.config.contact.content}" th:if="${theme.config.contact.switch}">
-                            <th:block th:each="content_list : ${content}">
-                                <p th:utext="${content_list.text}"></p>
-                            </th:block>
-                        </div>
+                        <!-- Contact -->
+                        <h2 class="title title--h3" th:text="${contact.title ?: 'Contact Form'}">联系我</h2>
 
-                        <div class="comment-box">
-                            <halo:comment group="content.halo.run" kind="singlePage"
-                                th:attr="name=${singlePage.metadata.name}" />
-                        </div>
+                        <form id="contact-form" class="contact-form" data-toggle="validator">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <input type="text" class="form-control" id="nameContact" name="nameContact"
+                                        placeholder="Full name / 称呼" required="required" autocomplete="on"
+                                        oninvalid="setCustomValidity('Fill in the field')"
+                                        onkeyup="setCustomValidity('')" th:attr="data-value=${contact.name}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <input type="email" class="form-control" id="emailContact" name="emailContact"
+                                        placeholder="Email address/邮箱" required="required" autocomplete="on"
+                                        oninvalid="setCustomValidity('Email is incorrect')"
+                                        onkeyup="setCustomValidity('')" th:attr="data-value=${contact.email}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group col-12 col-md-12">
+                                    <textarea class="textarea form-control" id="messageContact" name="messageContact"
+                                        placeholder="Your Message/信息" rows="4" required="required"
+                                        oninvalid="setCustomValidity('Fill in the field')"
+                                        onkeyup="setCustomValidity('')"
+                                        th:attr="data-value=${contact.message}"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 order-2 order-md-1 text-center text-md-left">
+                                    <div id="validator-contact" class="hidden"></div>
+                                </div>
+                                <div class="col-12 col-md-6 order-1 order-md-2 text-right">
+                                    <button type="submit" class="btn"><i class="font-icon icon-send"
+                                            th:attr="data-value=${contact.send}"></i>
+                                        Send/发送</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <!-- Footer -->
                     <th:block th:replace=" ~{modules/footer}" />

@@ -1,0 +1,13 @@
+apiVersion: v1alpha1
+kind: AnnotationSetting
+metadata:
+  name: my-annotation-setting
+spec:
+  targetRef:
+    group: ""
+    kind: MenuItem
+  formSchema:
+    - $formkit: "text"
+      name: "icon"
+      label: "图标"
+      help: "图标库地址:https://parlo.cn/icomoon/index.html"

@@ -98,6 +98,10 @@ spec:
       label: 导航
 
       formSchema:
+        - $formkit: menuRadio
+          name: menu
+          label: 导航菜单
+          help: 友情提醒：为了更好的适配主题，菜单子选项最多为5个
         - $formkit: group
           name: menu
           label: 导航设置
@@ -296,18 +300,29 @@ spec:
     - group: contact
       label: 联系
       formSchema:
-        - $formkit: checkbox
-          name: switch
-          label: 是否显示此模块
-          value: false
-        - $formkit: repeater
-          name: content
-          label: 新增内容
-          value: [ ]
-          children: 
-            - $formkit: code
-              name: text
-              value: ""
-              height: 200px
-              language: html
-              label: 新增内容
+        - $formkit: group
+          name: contact_info
+          label: 联系信息
+          help: 本页需联系表单插件！
+          children:
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”Contact Form“
+            - $formkit: text
+              name: name
+              label: 名字
+              help: 请填写表单中的组件标识
+            - $formkit: text
+              name: email
+              label: 邮箱
+              help: 请填写表单中的组件标识
+            - $formkit: text
+              name: message
+              label: 信息
+              help: 请填写表单中的组件标识
+            - $formkit: text
+              name: send
+              label: 发送
+              help: 请填写表单中的组件标识
+          
