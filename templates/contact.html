@@ -51,9 +51,10 @@
                                     <div id="validator-contact" class="hidden"></div>
                                 </div>
                                 <div class="col-12 col-md-6 order-1 order-md-2 text-right">
-                                    <button type="submit" class="btn"><i class="font-icon icon-send"
-                                            onclick="submitHaloForm()"></i>
-                                        Send/发送</button>
+                                    <button type="submit" class="btn">
+                                        <i class="font-icon icon-send" th:attr="data-value=${contact.send}"></i>
+                                        Send/发送
+                                    </button>
                                 </div>
                             </div>
                         </form>

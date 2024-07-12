@@ -15,7 +15,7 @@ spec:
   issues: "https://github.com/wflac/theme-vcard/issues"
   settingName: "theme-vcard-setting"
   configMapName: "theme-vcard-configMap"
-  version: "0.1"
+  version: "0.2"
   require: ">=2.14.0"
 
   customTemplates:

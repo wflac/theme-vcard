@@ -1,5 +1,5 @@
 <aside class="col-12 col-md-12 col-lg-2">
-    <!-- <div class="sidebar box sticky-column" th:with="menu = ${theme.config.menu.menu.menu_list}">
+    <!-- <div class="sidebar box sticky-column" th:if="${not #strings.isEmpty(theme.config.menu.menu.menu_list)}" th:with="menu = ${theme.config.menu.menu.menu_list}">
         <ul class="nav">
             <li class="nav__item" th:each="nav_item : ${menu}">
                 <a th:href="${nav_item.url}" target="_self">
@@ -9,7 +9,8 @@
             </li>
         </ul>
     </div> -->
-    <div class="sidebar box sticky-column" th:with="menu = ${menuFinder.getByName(theme.config.menu.menu)}">
+    <div class="sidebar box sticky-column" th:if="${not #strings.isEmpty(theme.config.menu.menu)}"
+        th:with="menu = ${menuFinder.getByName(theme.config.menu.menu)}">
         <ul class="nav" th:with="menuItems = ${menu.menuItems}">
             <li class="nav__item" th:each="menuItem : ${menuItems}">
                 <a th:href="@{${menuItem.status.href}}">
