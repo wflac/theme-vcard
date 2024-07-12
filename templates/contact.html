@@ -25,25 +25,24 @@
                         <form id="contact-form" class="contact-form" data-toggle="validator">
                             <div class="row">
                                 <div class="form-group col-12 col-md-6">
-                                    <input type="text" class="form-control" id="nameContact" name="nameContact"
+                                    <input type="text" class="form-control" id="nameContact" th:name="${contact.name}"
                                         placeholder="Full name / 称呼" required="required" autocomplete="on"
                                         oninvalid="setCustomValidity('Fill in the field')"
-                                        onkeyup="setCustomValidity('')" th:attr="data-value=${contact.name}">
+                                        onkeyup="setCustomValidity('')">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
-                                    <input type="email" class="form-control" id="emailContact" name="emailContact"
-                                        placeholder="Email address/邮箱" required="required" autocomplete="on"
-                                        oninvalid="setCustomValidity('Email is incorrect')"
-                                        onkeyup="setCustomValidity('')" th:attr="data-value=${contact.email}">
+                                    <input type="email" class="form-control" id="emailContact"
+                                        th:name="${contact.email}" placeholder="Email address/邮箱" required="required"
+                                        autocomplete="on" oninvalid="setCustomValidity('Email is incorrect')"
+                                        onkeyup="setCustomValidity('')">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group col-12 col-md-12">
-                                    <textarea class="textarea form-control" id="messageContact" name="messageContact"
-                                        placeholder="Your Message/信息" rows="4" required="required"
-                                        oninvalid="setCustomValidity('Fill in the field')"
-                                        onkeyup="setCustomValidity('')"
-                                        th:attr="data-value=${contact.message}"></textarea>
+                                    <textarea class="textarea form-control" id="messageContact"
+                                        th:name="${contact.message}" placeholder="Your Message/信息" rows="4"
+                                        required="required" oninvalid="setCustomValidity('Fill in the field')"
+                                        onkeyup="setCustomValidity('')"></textarea>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -53,7 +52,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 order-1 order-md-2 text-right">
                                     <button type="submit" class="btn"><i class="font-icon icon-send"
-                                            th:attr="data-value=${contact.send}"></i>
+                                            onclick="submitHaloForm()"></i>
                                         Send/发送</button>
                                 </div>
                             </div>
@@ -62,5 +61,14 @@
                     <!-- Footer -->
                     <th:block th:replace=" ~{modules/footer}" />
                 </div>
+            </div>
+        </div>
     </main>
+    <script th:inline="javascript">
+        var form_id = [[${ theme.config.contact.contact_info.id }]];
+        var form_name = [[${ theme.config.contact.contact_info.name }]];
+        var form_email = [[${ theme.config.contact.contact_info.email }]];
+        var form_message = [[${ theme.config.contact.contact_info.message }]];
+        var form_url = [[|${site.url}'/apis/api.form.halo.run/v1alpha1/plugins/PluginContactForm/entries'|]];
+    </script>
 </th:block>
