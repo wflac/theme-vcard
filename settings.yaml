@@ -1,13 +1,305 @@
 apiVersion: v1alpha1
 kind: Setting
 metadata:
-  name: theme-starter-setting
+  name: theme-vcard-setting
 spec:
   forms:
-    - group: style
-      label: 样式
+    - group: index
+      label: 资料
       formSchema:
-        - $formkit: color
-          name: background_color
-          label: 背景颜色
-          value: "#f2f2f2"
+
+        - $formkit: group
+          name: header
+          label: 头部展示
+          children:
+
+            - $formkit: group
+              name: header_image
+              label: 站点背景
+              help: 自定义站点背景
+              children:
+                - $formkit: attachment
+                  name: images
+                  label: 背景
+                  help: 自定义背景，默认采用原始值
+
+            - $formkit: group
+              name: header_info
+              label: 站点资料
+              help: 注意！默认为空时则与设置同步
+              children:
+                - $formkit: attachment
+                  name: header_info_img
+                  label: 头像
+                  help: 自定义站点头像
+                - $formkit: text
+                  name: header_info_title
+                  label: 标题
+                  help: 自定义站点标题
+                - $formkit: text
+                  name: header_info_subtitle
+                  label: 简介
+                  help: 自定义站点简介
+
+            - $formkit: repeater
+              name: social
+              label: 社交媒体
+              value: [ ]
+              children:
+                - $formkit: select
+                  name: icon
+                  label: 图标
+                  options:
+                    - label: github
+                      value: font-icon icon-github
+                    - label: facebook
+                      value: font-icon icon-facebook
+                    - label: instagram
+                      value: font-icon icon-instagram
+                    - label: twitter
+                      value: font-icon icon-twitter
+                    - label: twitch
+                      value: font-icon icon-twitch
+                    - label: telegram
+                      value: font-icon icon-send
+                    - label: rss
+                      value: font-icon icon-rss
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: url
+                  label: 链接
+                  validation: "required"
+
+            - $formkit: group
+              name: header_contact
+              label: 联系方式
+              help: 注意！为空时则默认"未设置"
+              children:
+                - $formkit: text
+                  name: header_contact_email
+                  label: 📮邮箱
+                  help: 请输入邮箱
+                - $formkit: text
+                  name: header_contact_phone
+                  label: 📱手机
+                  help: 请输入手机
+                - $formkit: text
+                  name: header_contact_birthday
+                  label: 🎂生日
+                  help: 请输入生日
+                - $formkit: text
+                  name: header_contact_Location
+                  label: 🌏位置
+                  help: 请输入位置
+
+    - group: menu
+      label: 导航
+      formSchema:
+        - $formkit: menuRadio
+          name: menu
+          label: 导航菜单
+          help: 友情提醒：为了更好的适配主题，菜单子选项最多为5个
+
+    - group: about
+      label: 首页
+      formSchema:
+        - $formkit: group
+          name: about_me
+          label: 个人介绍
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”About Me“
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 200px
+                  language: html
+                  label: 新增内容
+        - $formkit: group
+          name: about_what
+          label: 开发项目
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”I CAN DO“
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: title
+                  label: 标题
+                  help: 项目名称
+                - $formkit: attachment
+                  name: images
+                  label: 图标
+                  help: 自定义图像
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 100px
+                  language: html
+                  label: 新增内容      
+        - $formkit: group
+          name: about_evaluate
+          label: 客户评价
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”Testimonials“
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: title
+                  label: 标题
+                  help: 项目名称
+                - $formkit: attachment
+                  name: images
+                  label: 图标
+                  help: 自定义图像
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 100px
+                  language: html
+                  label: 新增内容                  
+        - $formkit: group
+          name: about_clients
+          label: 合作客户
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”Clients“
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: url
+                  label: 链接
+                - $formkit: attachment
+                  name: images
+                  label: 图标
+                  help: 自定义图像
+    
+    - group: resume
+      label: 简历
+      formSchema:
+        - $formkit: text
+          name: title
+          label: 标题
+          help: 默认为”Resume“
+        - $formkit: repeater
+          name: education
+          label: 学习经历
+          value: [ ]
+          children:
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”Education“
+            - $formkit: attachment
+              name: images
+              label: 图标
+            - $formkit: repeater
+              name: content
+              label: 新增内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: time
+                  label: 时间
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 200px
+                  language: html
+                  label: 新增内容
+        - $formkit: repeater
+          name: skills
+          label: 技能
+          children:
+            - $formkit: text
+              name: title
+              label: 名称
+              help: 默认为”My Skills“
+            - $formkit: repeater
+              name: content
+              label: 新增内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: num
+                  label: 百分比
+                - $formkit: text
+                  name: slider
+                  label: 滑块
+                  help: 默认为”0“
+
+    - group: contact
+      label: 联系
+      formSchema:
+        - $formkit: group
+          name: contact_info
+          label: 联系信息
+          help: 本页需联系表单插件！
+          children:
+            - $formkit: text
+              name: title
+              label: 标题
+              help: 默认为”Contact Form“
+            - $formkit: text
+              name: id
+              label: 表单id
+              help: 请填写表单模板的ID
+            - $formkit: text
+              name: name
+              label: 名字
+              help: 请填写表单中的组件标识
+            - $formkit: text
+              name: email
+              label: 邮箱
+              help: 请填写表单中的组件标识
+            - $formkit: text
+              name: message
+              label: 信息
+              help: 请填写表单中的组件标识

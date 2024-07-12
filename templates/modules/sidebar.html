@@ -9,7 +9,7 @@
             </li>
         </ul>
     </div> -->
-    <div class="sidebar box sticky-column" th:if="${not #strings.isEmpty(theme.config.menu.menu)}"
+    <div class="sidebar box sticky-column" th:if="${theme.config.menu.menu}"
         th:with="menu = ${menuFinder.getByName(theme.config.menu.menu)}">
         <ul class="nav" th:with="menuItems = ${menu.menuItems}">
             <li class="nav__item" th:each="menuItem : ${menuItems}">
